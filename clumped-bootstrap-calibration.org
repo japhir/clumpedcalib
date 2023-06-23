@@ -1,34 +1,3 @@
-* clumped isotope bootstrap calibration
-Written by [[https://orcid.org/0000-0003-2196-8718][Ilja J. Kocken]]
-Feel free to use this stuff, as long as you adhere to the [[file:LICENSE.md]]
-
-This document describes how to calculate bootstrapped averages and apply a clumped-isotope specific temperature calibration.
-
-- Calculate bootstrapped York regression from clumped isotope calibration data.
-- Calculate bootstrapped sample means for the age, d13C, d18O, and D47.
-- Apply the bootstrapped calibration to calculate temperature and d18Osw.
-
-To use this:
-0. Install the package ~clumpedcalib~, see below.
-1. Update the input calibration data [[file:dat/example_calib.csv]]. Make sure the
-   column names include ~X~, ~D47~, ~sd_X~, ~sd_D47~
-2. Change [[d18Osw_calc][the function that calculates d18Osw]] to something that you like.
-3. Change [[filter_outliers]] so that it filters out bad measurements for your data.
-4. Add your samples at the replicate level and update [[load sample data]]
-5. Walk through [[apply the functions]] step-by-step.
-
-The bootstrapped calibration idea is based on a Matlab script written by Alvaro Fernandez.
-
-** installation
-To install this "package" (it's a quick and dirty draft with ugly function
-names, but it should work!):
-
-#+begin_src R
-  remotes::install_github("japhir/clumpedcalib")
-#+end_src
-
-Or you can look at all the [[functions]] below.
-
 * example workflow
 #+property: header-args:R  :session *R:boot-calib* :exports both :results output :eval no-export :width 900
 ** load libraries
