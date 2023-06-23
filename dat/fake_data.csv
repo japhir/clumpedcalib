@@ -1,0 +1,8 @@
+age,bins,d18O_PDB_vit,d13C_PDB_vit,D47_final,outlier,identifier_1,broadid
+15.2,1,12,13,0.6,FALSE,smp1,other
+15.4,1,8,9,0.61,FALSE,smp1,other
+15.7,1,9,15,0.599,FALSE,smp2,other
+33.2,2,12,13,0.62,FALSE,smp3,other
+33.7,2,8,9,0.65,FALSE,smp4,other
+33.6,2,8,14,0.67,FALSE,smp5,other
+33.9,2,9,15,0.63,FALSE,smp5,other
