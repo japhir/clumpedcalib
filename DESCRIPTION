@@ -1,0 +1,28 @@
+Package: clumpedcalib
+Title: Calculate and Apply Clumped Isotope Calibrations Using Bootstrapping
+Version: 0.0.0.9000
+Authors@R:
+    person("Ilja", "Kocken", , "i.j.kocken@uu.nl", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-2196-8718"))
+Description: Calculate bootstrapped York regression from clumped isotope
+    calibration data. Calculate bootstrapped sample means for the age, d13C,
+    d18O, and D47. Apply the bootstrapped calibration to calculate temperature
+    and d18Osw.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports:
+    bfsl,
+    boot,
+    clumpedr,
+    dplyr,
+    ggdist,
+    glue,
+    infer,
+    purrr,
+    readr,
+    stats,
+    tibble,
+    tidylog,
+    tidyr

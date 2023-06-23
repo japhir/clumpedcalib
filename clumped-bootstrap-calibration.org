@@ -1,17 +1,15 @@
-#+property: header-args:R  :session *R:boot-calib* :exports both :results output :eval no-export :width 900
-#+author: Ilja J. Kocken
 * clumped isotope bootstrap calibration
 Written by [[https://orcid.org/0000-0003-2196-8718][Ilja J. Kocken]]
+Feel free to use this stuff, as long as you adhere to the [[file:LICENSE.md]]
 
 This document describes how to calculate bootstrapped averages and apply a clumped-isotope specific temperature calibration.
 
-- Apply a bootstrapped York regression to clumped isotope calibration data.
-- Calculate bootstrapped sample means for the age, the d13C, d18O, and D47.
-- Combines the bootstraps and calculates temperature and d18Osw.
-
-The bootstrapped calibration idea is based on a Matlab script written by Alvaro Fernandez.
+- Calculate bootstrapped York regression from clumped isotope calibration data.
+- Calculate bootstrapped sample means for the age, d13C, d18O, and D47.
+- Apply the bootstrapped calibration to calculate temperature and d18Osw.
 
 To use this:
+0. Install the package ~clumpedcalib~, see below.
 1. Update the input calibration data [[file:dat/example_calib.csv]]. Make sure the
    column names include ~X~, ~D47~, ~sd_X~, ~sd_D47~
 2. Change [[d18Osw_calc][the function that calculates d18Osw]] to something that you like.
@@ -19,8 +17,137 @@ To use this:
 4. Add your samples at the replicate level and update [[load sample data]]
 5. Walk through [[apply the functions]] step-by-step.
 
-** clumped_calib_boot
+The bootstrapped calibration idea is based on a Matlab script written by Alvaro Fernandez.
+
+** installation
+To install this "package" (it's a quick and dirty draft with ugly function
+names, but it should work!):
+
 #+begin_src R
+  remotes::install_github("japhir/clumpedcalib")
+#+end_src
+
+Or you can look at all the [[functions]] below.
+
+* example workflow
+#+property: header-args:R  :session *R:boot-calib* :exports both :results output :eval no-export :width 900
+** load libraries
+#+begin_src R :results none
+  ## library(tidyverse) # dplyr, readr, purrr, glue, ggplot2, <3
+  library(dplyr)
+  library(ggplot2)
+
+  ## library(boot)      # bootstrapping
+  ## library(bfsl)      # best fit straight line, for the York regression
+  library(ggdist)    # for calculating averages and visualising distributions
+
+  theme_set(theme_bw() + theme(text = element_text(size = 24)))
+
+  # this sloppy package, see all functions below
+  library(clumpedcalib)
+#+end_src
+
+** load calibration data and calculate bootstrapped York regression
+A very very limited subset some calibration data.
+#+begin_src R :results none
+  raw <- readr::read_csv("dat/example_calib.csv",
+                  col_names = c("X", "D47", "sd_X", "sd_D47"))
+
+  # this is very much a toy example with only 100 bootstraps!
+  calib <- clumped_calib_boot(raw, Nsim = 100) |>
+    # for the real deal, increase Nsim to something like 1e5 and save the results
+    # for future re-use
+    readr::write_csv(glue::glue("out/{lubridate::today()}_calib_clumped_boot.csv"))
+
+  calib <- readr::read_csv("out/2023-06-22_calib_clumped_boot.csv")
+#+end_src
+
+make a plot
+
+#+begin_src R :results output graphics file :file imgs/calib_plot.png
+  raw |>
+    ggplot(aes(x = X, y = D47)) +
+    geom_point() +
+    geom_errorbar(aes(xmin = X - sd_X, xmax = X + sd_X)) +
+    geom_errorbar(aes(ymin = D47 - sd_D47, ymax = D47 + sd_D47)) +
+    # for now just draw all the lines since we're only sampling a few
+    # setting alpha lower allows you to overplot the draws
+    # don't forget to subset to just a few 100 though, otherwise it will be slow
+    geom_abline(aes(slope = slope, intercept = intercept),
+                alpha = .2, data = calib)
+#+end_src
+
+#+RESULTS:
+
+[[file:imgs/calib_plot.png]]
+
+** COMMENT make fake data
+#+begin_src R
+    # or come up with an entirely artificial example
+    dat <- tribble(
+      ~ age, ~ bins, ~ d18O_PDB_vit, ~ d13C_PDB_vit, ~ D47_final, ~ outlier, ~ identifier_1, ~broadid,
+      15.2, 1, 12, 13, 0.6, FALSE, "smp1", "other",
+      15.4, 1, 8, 9, .61, FALSE, "smp1", "other",
+      15.7, 1, 9, 15, .599, FALSE, "smp2", "other",
+      33.2, 2, 12, 13, 0.62, FALSE, "smp3", "other",
+      33.7, 2, 8, 9, .65, FALSE, "smp4", "other",
+      33.6, 2, 8, 14, .67, FALSE, "smp5", "other",
+      33.9, 2, 9, 15, .63, FALSE, "smp5", "other",
+      ) |>
+      write_csv("dat/fake_data.csv")
+#+end_src
+
+** load sample data
+I've come up with some really silly sample data.
+#+begin_src R :results output graphics file :file imgs/data_raw.png
+  dat <- readr::read_csv("dat/fake_data.csv")
+
+  pl_raw <- dat |>
+    ggplot(aes(x = age, y = D47_final, colour = factor(bins))) +
+    geom_point()
+  pl_raw
+#+end_src
+
+#+RESULTS:
+
+[[file:imgs/data_raw.png]]
+
+
+** calculate bootstrapped means and apply the temperature calibration
+#+begin_src R :results output graphics file :file imgs/data_plot.png
+  # calculate other "normal" summary stats if desired, like N
+  oth <- dat |>
+    group_by(bins) |>
+    summarize(n = n())
+
+  # calculate d18Osw and temp
+  sum <- apply_calib_and_d18O_boot(data = dat,
+                                   calib = calib,
+                                   group = bins,
+                                   Nsim = 100) |>
+    left_join(oth)
+
+  # make a plot
+  sum |>
+    ggplot(aes(x = age, y = temp)) +
+    ggdist::geom_pointinterval(aes(ymin = temp.lower, ymax = temp.upper,
+                                   linewidth = factor(.width))) +
+    scale_linewidth_manual(values = c("0.68" = 9, "0.95" = 2), guide = "none") +
+    geom_text(aes(label = paste("N =", n)), nudge_x = 1.5)
+#+end_src
+
+#+RESULTS:
+
+[[file:imgs/data_plot.png]]
+
+* functions
+This could be turned into a package if it proves useful at some point but I
+currently don't have the time.
+
+Ok ok I'll quickly tangle them to R files so the user can install from github.
+
+** clumped_calib_boot
+#+begin_src R :tangle R/clumped_calib_boot.R
   #' Bootstrapped clumped isotope calibration
   #'
   #' @param data A data.frame with columns D47, X, sd_X, and sd_D47. X stands for
@@ -33,17 +160,17 @@ To use this:
     }
 
     # this returns 4 t values
-    results <- boot(data = data, statistic = bs, R = Nsim)
+    results <- boot::boot(data = data, statistic = bs, R = Nsim)
 
     # tidy up
-    tibble(intercept = results$t[, 1], slope = results$t[, 2])
+    tibble::tibble(intercept = results$t[, 1], slope = results$t[, 2])
   }
 #+end_src
 
 #+RESULTS:
 
 ** filter_outliers
-#+begin_src R
+#+begin_src R :tangle R/filter_outliers.R
   #' Filter clumped isotope outliers
   #'
   #' @param data A dataframe with columns `outlier`, `broadid`,
@@ -62,7 +189,7 @@ To use this:
 #+RESULTS:
 
 ** bootstrap_means
-#+begin_src R
+#+begin_src R :tangle R/bootstrap_means.R
   ##' Calculate bootstrapped means for each group in a dataframe
   ##'
   ##' @param data A dataframe or tibble that should have columns `outlier`,
@@ -77,16 +204,6 @@ To use this:
   ##' @param D47 The column name in `data` with the clumped isotope values.
   ##' @param Nsim The number of bootstraps you want to run. Defaults to the
   ##'   number of rows in `calib`.
-  ##' @author Ilja J. Kocken
-  ##' @examples
-  ##' data |> apply_calibration_and_d18O_with_uncertainty(
-  ##'   calib = calib,
-  ##'   group = spec,
-  ##'   age = age,
-  ##'   d13C = d13C_PDB_vit,
-  ##'   d18O = d18O_PDB_vit,
-  ##'   D47 = D47_final,
-  ##'   Nsim = 5000)
   bootstrap_means <- function(data,
                               group,
                               age,
@@ -103,7 +220,7 @@ To use this:
       select({{group}}, {{age}}, {{d13C}}, {{d18O}}, {{D47}}) |>
       # R magic, search for nesting/unnesting if you want to understand what
       # happens here.
-      nest() |>
+      tidyr::nest() |>
       # create Nsim bootstrapped copies of the data
       mutate(boot = purrr::map(data,
                         ~ infer::rep_slice_sample(.x,
@@ -124,14 +241,18 @@ To use this:
       # get rid of the bootstrapped values
       select(-boot) |>
       # unfold the bootstraps, we're back to a simple tibble now
-      unnest(summ)
+      tidyr::unnest(summ)
   }
 #+end_src
 
 #+RESULTS:
 
 ** calc_temp_d18Osw
-#+begin_src R
+#+begin_src R :tangle R/calc_temp_d18Osw.R
+  #' Calculate temperature and d18Osw
+  #'
+  #' From bootstrapped samples and a bootstrapped set of slope--intercept pairs.
+  #'
   #' @param calib A dataframe with draws from the bootstrapped (or Bayesian)
   #'   temperature regression. Should have columns `slope` and `intercept`,
   #'   which are related via `clumpedr::revcal()`.
@@ -168,10 +289,10 @@ To use this:
 #+RESULTS:
 
 ** our_summary
-#+begin_src R
+#+begin_src R :tangle R/our_summary.R
   #' Summarize the bootstrapped values into a mean, sd, and the 68% and 95% CIs
   #'
-  #' @param boot Output of `apply_calibration_and_d18O_with_uncertainty()`
+  #' @param boot Output of `apply_calib_and_d18O_boot()`
   #' @param group The group to summarize by.
   our_summary <- function(boot, group) {
     boot |>
@@ -184,7 +305,7 @@ To use this:
 #+RESULTS:
 
 ** d18Osw_calc
-#+begin_src R
+#+begin_src R :tangle R/d18Osw_calc.R
   #' Calculate the d18Osw from the d18Occ and temperature
   #'
   #' according to Kim & O'neil 1997 as modified by Bemis et al., 1998
@@ -210,7 +331,7 @@ To use this:
 :CREATED:  [2022-08-08 Mon 22:04]
 :END:
 reverse of d18Osw_calc
-#+begin_src R
+#+begin_src R :tangle R/temp_calc.R
   #' Calculate the temperature from d18Occ and the d18Osw
   #'
   #' This is the relationship from Kim & O'neil 1997,
@@ -244,9 +365,9 @@ test 'em out
 : [6] 5.000000e+00
 
 ** wrapper
-#+begin_src R
-  ##' Calculate bootstrapped mean values for age, d18O, d13C, and D47 and calculate temperature and d18Osw
-  ##'
+#+begin_src R :tangle R/apply_calib_and_d18O_boot.R
+  #' Calculate bootstrapped mean values for age, d18O, d13C, and D47 and calculate temperature and d18Osw
+  #'
   apply_calib_and_d18O_boot <- function(data,
                                         calib,
                                         group,
@@ -293,98 +414,3 @@ test 'em out
 #+end_src
 
 #+RESULTS:
-
-* apply the functions
-** load libraries
-#+begin_src R :results none
-  library(tidyverse)
-  library(boot)
-  library(bfsl)
-  library(ggdist)
-  theme_set(theme_bw() + theme(text = element_text(size = 24)))
-#+end_src
-
-** load calibration data and calculate bootstrapped York regression
-#+begin_src R :results output graphics file :file imgs/calib_plot.png
-  # a very very limited subset some calibration data
-  raw <- read_csv("dat/example_calib.csv",
-                  col_names = c("X", "D47", "sd_X", "sd_D47"))
-
-  # this is very much a toy example with only 100 bootstraps!
-  calib <- clumped_calib_boot(raw, Nsim = 100) |>
-    # for the real deal, increase Nsim to something like 1e5 and save the results
-    # for future re-use
-    write_csv(glue::glue("out/{lubridate::today()}_calib_clumped_boot.csv"))
-
-  calib <- read_csv("out/2023-06-22_calib_clumped_boot.csv")
-
-  raw |>
-    ggplot(aes(x = X, y = D47)) +
-    geom_point() +
-    # for now just draw all the lines since we're only sampling a few
-    # setting alpha lower allows you to overplot the draws
-    # don't forget to subset to just a few 100 though, otherwise it will be slow
-    geom_abline(aes(slope = slope, intercept = intercept),
-                alpha = .6, data = calib)
-#+end_src
-
-#+RESULTS:
-
-[[file:imgs/calib_plot.png]]
-
-** COMMENT make fake data
-#+begin_src R
-    # or come up with an entirely artificial example
-    dat <- tribble(
-      ~ age, ~ bins, ~ d18O_PDB_vit, ~ d13C_PDB_vit, ~ D47_final, ~ outlier, ~ identifier_1, ~broadid,
-      15.2, 1, 12, 13, 0.6, FALSE, "smp1", "other",
-      15.4, 1, 8, 9, .61, FALSE, "smp1", "other",
-      15.7, 1, 9, 15, .599, FALSE, "smp2", "other",
-      33.2, 2, 12, 13, 0.62, FALSE, "smp3", "other",
-      33.7, 2, 8, 9, .65, FALSE, "smp4", "other",
-      33.6, 2, 8, 14, .67, FALSE, "smp5", "other",
-      33.9, 2, 9, 15, .63, FALSE, "smp5", "other",
-      ) |>
-      write_csv("dat/fake_data.csv")
-#+end_src
-
-** load sample data
-#+begin_src R :results output graphics file :file imgs/data_raw.png
-  dat <- read_csv("dat/fake_data.csv")
-
-  pl_raw <- dat |>
-    ggplot(aes(x = age, y = D47_final, colour = factor(bins))) +
-    geom_point()
-  pl_raw
-#+end_src
-
-#+RESULTS:
-
-[[file:imgs/data_raw.png]]
-
-** calculate bootstrapped means and apply the temperature calibration
-#+begin_src R :results output graphics file :file imgs/data_plot.png
-  # calculate other "normal" summary stats if desired, like N
-  oth <- dat |>
-    group_by(bins) |>
-    summarize(n = n())
-
-  # calculate d18Osw and temp
-  sum <- apply_calib_and_d18O_boot(data = dat,
-                                   calib = calib,
-                                   group = bins,
-                                   Nsim = 100) |>
-    left_join(oth)
-
-  # make a plot
-  sum |>
-    ggplot(aes(x = age, y = temp)) +
-    ggdist::geom_pointinterval(aes(ymin = temp.lower, ymax = temp.upper,
-                                   linewidth = factor(.width))) +
-    scale_linewidth_manual(values = c("0.68" = 9, "0.95" = 2), guide = "none") +
-    geom_text(aes(label = paste("N =", n)), nudge_x = 1.5)
-#+end_src
-
-#+RESULTS:
-
-[[file:imgs/data_plot.png]]
