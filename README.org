@@ -9,13 +9,14 @@ This document describes how to calculate bootstrapped averages and apply a clump
 - Apply the bootstrapped calibration to calculate temperature and d18Osw.
 
 To use this:
-0. Install the package ~clumpedcalib~, see below.
-1. Update the input calibration data [[file:dat/example_calib.csv]]. Make sure the
+1. Install this package ~clumpedcalib~, see [[#installation]].
+2. Update the input calibration data [[file:dat/example_calib.csv]]. Make sure the
    column names include ~X~, ~D47~, ~sd_X~, ~sd_D47~
-2. Change [[file:clumped-bootstrap-calibration.org::*d18Osw_calc][the function that calculates d18Osw]] to something that you like.
-3. Change [[file:clumped-bootstrap-calibration.org::*filter_outliers][filter outliers]] so that it filters out bad measurements for your data.
-4. Add your samples at the replicate level and update [[file:clumped-bootstrap-calibration.org::*load sample data][load sample data]]
-5. Walk through [[file:clumped-bootstrap-calibration.org::*apply the functions][apply the functions]] step-by-step.
+3. Overwrite [[file:functions.org#d18Osw_calc][the function that calculates d18Osw]] to something that you like.
+4. Overwrite [[file:functions.org#filter_outliers][filter outliers]] so that it filters out bad measurements for your data.
+5. Add your samples at the replicate level and update [[file:clumped-bootstrap-calibration.org#load-sample-data][load sample data]]
+6. Walk through [[file:clumped-bootstrap-calibration.org][the example workflow]] step-by-step.
+7. Have a look at [[file:functions.org][the functions]] to better understand what's happening.
 
 The bootstrapped calibration idea is based on a Matlab script written by Alvaro Fernandez.
 
@@ -27,4 +28,4 @@ names, but it should work!):
   remotes::install_github("japhir/clumpedcalib")
 #+end_src
 
-Or you can look at all the [[file:clumped-bootstrap-calibration.org::*functions][functions]].
+Or you can look at all the [[file:functions.org][functions]].
