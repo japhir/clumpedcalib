@@ -1,6 +1,7 @@
 #' Filter clumped isotope outliers
 #'
 #' @param data A dataframe with columns `outlier`, `broadid`,
+#' @export
 filter_outliers <- function(data, group) {
   data |>
     tidylog::filter(!outlier,

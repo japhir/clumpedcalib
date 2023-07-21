@@ -15,6 +15,7 @@ RoxygenNote: 7.2.3
 Imports:
     bfsl,
     boot,
+    cli,
     clumpedr,
     dplyr,
     ggdist,
@@ -26,3 +27,6 @@ Imports:
     tibble,
     tidylog,
     tidyr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

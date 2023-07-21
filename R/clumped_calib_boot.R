@@ -2,6 +2,8 @@
 #'
 #' @param data A data.frame with columns D47, X, sd_X, and sd_D47. X stands for
 #'   the commonly-used temperature scale, 10^6 / T^2 with T in K.
+#' @param Nsim Number of simulations to do for bootstrapping.
+#' @export
 clumped_calib_boot <- function(data, Nsim = 1e5) {
   bs <- function(data, indices) {
     d <- data[indices,] # allows boot to select sample

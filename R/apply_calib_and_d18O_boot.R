@@ -1,5 +1,6 @@
 #' Calculate bootstrapped mean values for age, d18O, d13C, and D47 and calculate temperature and d18Osw
 #'
+#' @export
 apply_calib_and_d18O_boot <- function(data,
                                       calib,
                                       group,

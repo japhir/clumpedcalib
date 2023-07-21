@@ -4,18 +4,20 @@
 \alias{d18Osw_calc}
 \title{Calculate the d18Osw from the d18Occ and temperature}
 \usage{
-d18Osw_calc(d18Occ, temperature)
+d18Osw_calc(d18Occ, temperature, equation = NULL)
 }
 \arguments{
 \item{d18Occ}{The oxygen isotope composition of the calcite in VPDB.}
 
 \item{temperature}{The formation temperature (in °C).}
+
+\item{equation}{Character vector with the equation to use. Defaults to Kim & O'Neil, 1997.}
 }
 \value{
 The oxygen isotope composition of the sea water in VSMOW.
 }
 \description{
-according to Kim & O'neil 1997 as modified by Bemis et al., 1998
+According to Kim & O'neil 1997 as modified by Bemis et al., 1998
 }
 \author{
 Ilja J. Kocken

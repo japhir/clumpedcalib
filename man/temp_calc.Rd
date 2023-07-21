@@ -4,7 +4,7 @@
 \alias{temp_calc}
 \title{Calculate the temperature from d18Occ and the d18Osw}
 \usage{
-temp_calc(d18Occ, d18Osw)
+temp_calc(d18Occ, d18Osw, equation = NULL)
 }
 \arguments{
 \item{d18Occ}{The d18O of the calcite in VPDB.}

@@ -4,7 +4,7 @@
 #' @param group The group to summarize by.
 our_summary <- function(boot, group) {
   boot |>
-    group_by({{group}}) |>
+    dplyr::group_by({{group}}) |>
     ggdist::median_qi(.exclude = "replicate",
                       .width = c(.68, .95))
 }
