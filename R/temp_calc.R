@@ -11,12 +11,9 @@
 #' @export
 temp_calc <- function(d18Occ, d18Osw, equation = NULL) {
   equation <- equation_supported(equation)
-  if (!equation %in% supported_equations()) {
-    cli::cli_abort(c("Equation {equation} is not implemented",
-                     "i" = "Feel free to submit a pull request!"))
-  }
-
   if (equation == "KimONeil1997") {
+    # T (°C) = a + b(δc - δw) + c(δc - δw)^2
+    # with a = 16.1, b = -4.64, and c = 0.09
     d18Osw <- d18Osw - 0.27 # convert from VSMOW to VPDB
     temp <- 16.1 - 4.64 * (d18Occ - d18Osw) + 0.09 * (d18Occ - d18Osw)^2
   } else if (equation == "Marchitto2014") {

@@ -1,9 +1,13 @@
-#' Calculate bootstrapped mean values for age, d18O, d13C, and D47 and calculate temperature and d18Osw
+#' Calculate bootstrapped means with temperature and d18Osw
+#'
+#' For age, d18O, d13C, and D47, from which we calculate temperature and d18Osw.
 #'
 #' @inheritParams filter_outliers
 #' @inheritParams bootstrap_means
 #' @inheritParams temp_d18Osw_calc
 #' @inheritParams our_summary
+#' @param output Character vector specifying whether to return a `"summary"` or
+#'   the `"raw"` bootstrapped samples.
 #' @export
 apply_calib_and_d18O_boot <- function(data,
                                       calib,

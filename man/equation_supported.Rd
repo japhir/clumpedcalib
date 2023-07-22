@@ -6,6 +6,24 @@
 \usage{
 equation_supported(equation)
 }
+\arguments{
+\item{equation}{Character vector with equation reference.}
+}
+\value{
+Character vector of cleaned up equation reference. Gives an error if it's currently not supported.
+}
 \description{
-Throws an error if not supported.
+See details for which equations are currently supported.
+}
+\details{
+\itemize{
+\item Kim & O'Neil 1997 as recalculated by Bemis et al., 1998:
+
+\eqn{T = a + b(\delta_{c} - \delta_{w}) + c(\delta_{c} - \delta_{w})^2}{T = a + b(delta_c - delta_w) + c(delta_c - delta_w)^2},
+
+where T is in °C, \eqn{\delta_{c}}{delta_c} is in VPDB and \eqn{\delta_{w}}{delta_w} is in VMOW.
+\item Marchitto et al., 2014:
+
+\eqn{(\delta_{cp} - \delta_{ws} + 0.27) = -0.245\pm0.005t + 0.0011\pm0.0002t^{2} + 3.58±0.02}{(delta_cp - delta_ws + 0.27) = -0.245+-0.005t + 0.0011+-0.0002t^2 + 3.58+-0.02}.
+}
 }

@@ -3,13 +3,13 @@ test_that("They're reversible", {
   temp_calc(d18Occ = 2, d18Osw = 0)
   d18Osw_calc(d18Occ = 2, temperature = 5)
   # is it reversible?
-  expect_equal(d18Osw = d18Osw_calc(d18Occ = 3,
-                                    temp = temp_calc(d18Occ = 3,
-                                                     d18Osw = 0)),
-               0)
+  expect_equal(d18Osw_calc(d18Occ = 3,
+                           temp = temp_calc(d18Occ = 3,
+                                            d18Osw = 0)),
+               expected = 0)
   expect_equal(temp_calc(d18Occ = 3,
                          d18Osw = d18Osw_calc(d18Occ = 3, temp = 5)),
-               5)
+               expected = 5)
   expect_error(d18Osw_calc(5, 3, equation = "hoi"))
   expect_error(temp_calc(5, 3, equation = "hoi"))
 
@@ -21,12 +21,12 @@ test_that("They're reversible", {
                                             d18Osw = 0,
                                             equation = "Marchitto2014"),
                            equation = "Marchitto2014"),
-               0)
+               expected = 0)
   expect_equal(temp_calc(d18Occ = 3,
                          d18Osw = d18Osw_calc(d18Occ = 3, temp = 5,
                                               equation = "Marchitto2014"),
                          equation = "Marchitto2014"),
-               5)
+               expected = 5)
 
   ## # set up a plot for comparison between equations
   ## comparison <- expand.grid(d18Occ = seq(-10, 10),

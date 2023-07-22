@@ -2,7 +2,7 @@
 % Please edit documentation in R/apply_calib_and_d18O_boot.R
 \name{apply_calib_and_d18O_boot}
 \alias{apply_calib_and_d18O_boot}
-\title{Calculate bootstrapped mean values for age, d18O, d13C, and D47 and calculate temperature and d18Osw}
+\title{Calculate bootstrapped means with temperature and d18Osw}
 \usage{
 apply_calib_and_d18O_boot(
   data,
@@ -22,11 +22,14 @@ which are related via \code{clumpedr::revcal()}.}
 
 \item{group}{Column name of the groups.}
 
+\item{output}{Character vector specifying whether to return a \code{"summary"} or
+the \code{"raw"} bootstrapped samples.}
+
 \item{equation}{Character vector with the equation to use. Defaults to Kim & O'Neil, 1997.}
 
 \item{Nsim}{The number of bootstraps you want to run. Defaults to the
 number of rows in \code{calib}.}
 }
 \description{
-Calculate bootstrapped mean values for age, d18O, d13C, and D47 and calculate temperature and d18Osw
+For age, d18O, d13C, and D47, from which we calculate temperature and d18Osw.
 }

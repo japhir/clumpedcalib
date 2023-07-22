@@ -12,6 +12,9 @@ the commonly-used temperature scale, 10^6 / T^2 with T in K.}
 
 \item{Nsim}{Number of simulations to do for bootstrapping.}
 }
+\value{
+A \link[tibble:tibble-package]{tibble} with bootstrapped slope--intercept pairs.
+}
 \description{
 Bootstrapped clumped isotope calibration
 }
