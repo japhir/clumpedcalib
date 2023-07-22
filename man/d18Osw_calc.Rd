@@ -7,7 +7,7 @@
 d18Osw_calc(d18Occ, temperature, equation = NULL)
 }
 \arguments{
-\item{d18Occ}{The oxygen isotope composition of the calcite in VPDB.}
+\item{d18Occ}{The oxygen isotope composition of the carbonate in VPDB.}
 
 \item{temperature}{The formation temperature (in °C).}
 

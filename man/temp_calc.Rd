@@ -7,9 +7,11 @@
 temp_calc(d18Occ, d18Osw, equation = NULL)
 }
 \arguments{
-\item{d18Occ}{The d18O of the calcite in VPDB.}
+\item{d18Occ}{The oxygen isotope composition of the carbonate in VPDB.}
 
-\item{d18Osw}{The d18O of the sea water in VSMOW}
+\item{d18Osw}{The oxygen isotope composition of the sea water in VSMOW}
+
+\item{equation}{Character vector with the equation to use. Defaults to Kim & O'Neil, 1997.}
 }
 \value{
 The temperature in degrees Celsius.
@@ -17,4 +19,7 @@ The temperature in degrees Celsius.
 \description{
 This is the relationship from Kim & O'neil 1997,
 as updated by Bemis et al., 1998
+}
+\author{
+Ilja J. Kocken
 }

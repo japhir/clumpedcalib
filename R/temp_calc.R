@@ -3,9 +3,11 @@
 #' This is the relationship from Kim & O'neil 1997,
 #' as updated by Bemis et al., 1998
 #'
-#' @param d18Occ The d18O of the calcite in VPDB.
-#' @param d18Osw The d18O of the sea water in VSMOW
+#' @param d18Occ The oxygen isotope composition of the carbonate in VPDB.
+#' @param d18Osw The oxygen isotope composition of the sea water in VSMOW
+#' @param equation Character vector with the equation to use. Defaults to Kim & O'Neil, 1997.
 #' @return The temperature in degrees Celsius.
+#' @author Ilja J. Kocken
 #' @export
 temp_calc <- function(d18Occ, d18Osw, equation = NULL) {
   equation <- equation_supported(equation)

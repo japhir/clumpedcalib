@@ -2,9 +2,8 @@
 #'
 #' According to Kim & O'neil 1997 as modified by Bemis et al., 1998
 #'
-#' @param d18Occ The oxygen isotope composition of the calcite in VPDB.
 #' @param temperature  The formation temperature (in °C).
-#' @param equation Character vector with the equation to use. Defaults to Kim & O'Neil, 1997.
+#' @inheritParams temp_calc
 #' @return The oxygen isotope composition of the sea water in VSMOW.
 #' @author Ilja J. Kocken
 #' @export
