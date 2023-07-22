@@ -7,32 +7,29 @@ Ok ok I'll quickly tangle them to R files so the user can install from github.
 EDIT: this file is now outdated as I've improved some of the functions in their own files! I've now included all the files here, let's hope that github renders that correctly!
 
 ** clumped_calib_boot
-#+include: R/clumped_calib_boot.R
+[[file:R/clumped_calib_boot.R]]
 
 ** filter_outliers
-#+include: R/filter_outliers.R
+[[file:R/filter_outliers.R]]
 
 ** bootstrap_means
-#+include: R/bootstrap_means.R
+[[file:R/bootstrap_means.R]]
 
 ** temp_d18Osw_calc
-#+include: R/temp_d18Osw_calc.R
+[[file:R/temp_d18Osw_calc.R]]
 
 ** our_summary
-#+include: R/our_summary.R
+[[file:R/our_summary.R]]
 
 ** d18Osw_calc
-#+include: R/d18Osw_calc.R
+[[file:R/d18Osw_calc.R]]
 
 ** temp_calc
-:PROPERTIES:
-:CREATED:  [2022-08-08 Mon 22:04]
-:END:
 reverse of d18Osw_calc
 
-#+include: R/temp_calc.R
+[[file:R/temp_calc.R]]
 
 test 'em out in [[file:tests/testthat/test-d18Osw_temp_calculations.R]]
 
 ** wrapper
-#+include: R/apply_calib_and_d18O_boot.R
+[[file:R/apply_calib_and_d18O_boot.R]]
