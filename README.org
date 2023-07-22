@@ -20,7 +20,7 @@ To use this:
 4. Check to see if you like [[file:R/d18Osw_calc.R][the function that calculates d18Osw]]. Currently, you can choose from the Kim & O'Neil 1997 calibration, as adjusted by Bemis et al., 1998, or the Marchitto et al., 2014 calibration.
 5. Create your own definition of [[file:R/filter_outliers.R][filter outliers]] so that it filters out bad measurements and NA's for your data.
 6. Walk through [[file:clumped-bootstrap-calibration.org][the example workflow]] step-by-step.
-7. Have a look at [[file:functions.org][the functions]] to better understand what's happening.
+7. Have a look at [[file:R][the functions]] to better understand what's happening.
 
 The bootstrapped calibration idea is based on a Matlab script written by Alvaro Fernandez.
 
@@ -31,4 +31,4 @@ To install this development package:
   remotes::install_github("japhir/clumpedcalib")
 #+end_src
 
-Or you can look at all the [[file:functions.org][functions]] and only copy what you like.
+Or you can look at all the [[file:R][functions]] and only copy what you like.
