@@ -4,7 +4,28 @@
 \alias{apply_calib_and_d18O_boot}
 \title{Calculate bootstrapped mean values for age, d18O, d13C, and D47 and calculate temperature and d18Osw}
 \usage{
-apply_calib_and_d18O_boot(data, calib, group, output = "summary", Nsim = NULL)
+apply_calib_and_d18O_boot(
+  data,
+  calib,
+  group,
+  output = "summary",
+  equation = NULL,
+  Nsim = NULL
+)
+}
+\arguments{
+\item{data}{A dataframe with columns \code{outlier}, \code{broadid}}
+
+\item{calib}{A dataframe with draws from the bootstrapped (or Bayesian)
+temperature regression. Should have columns \code{slope} and \code{intercept},
+which are related via \code{clumpedr::revcal()}.}
+
+\item{group}{Column name of the groups.}
+
+\item{equation}{Character vector with the equation to use. Defaults to Kim & O'Neil, 1997.}
+
+\item{Nsim}{The number of bootstraps you want to run. Defaults to the
+number of rows in \code{calib}.}
 }
 \description{
 Calculate bootstrapped mean values for age, d18O, d13C, and D47 and calculate temperature and d18Osw

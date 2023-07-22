@@ -3,11 +3,11 @@
 #' Throws an error if not supported.
 equation_supported <- function(equation) {
   supported_equations <- c(
-    "KimONeil1997",
-    "Marchitto2014" # TODO
+    "KimONeil1997", # NOTE: as recalculated in Bemis 1998!
+    "Marchitto2014"
+    # "Bemis1998" TODO
     # "Erez1983" TODO
     # "Shackleton1974" TODO
-    # "Bemis1998" TODO
   )
 
   # default

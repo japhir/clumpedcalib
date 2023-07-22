@@ -1,10 +1,15 @@
 #' Calculate bootstrapped mean values for age, d18O, d13C, and D47 and calculate temperature and d18Osw
 #'
+#' @inheritParams filter_outliers
+#' @inheritParams bootstrap_means
+#' @inheritParams temp_d18Osw_calc
+#' @inheritParams our_summary
 #' @export
 apply_calib_and_d18O_boot <- function(data,
                                       calib,
                                       group,
                                       output = "summary",
+                                      equation = NULL,
                                       Nsim = NULL) {
   # make sure you select one of the valid output types
   if (!output %in% c("summary", "raw", "all")) {
@@ -27,7 +32,7 @@ apply_calib_and_d18O_boot <- function(data,
                     d18O = d18O_PDB_vit,
                     D47 = D47_final,
                     Nsim = Nsim) |>
-    calc_temp_d18Osw(calib = calib, Nsim = Nsim)
+    temp_d18Osw_calc(calib = calib, equation = equation, Nsim = Nsim)
 
   if (output == "raw") {
     return(sim)

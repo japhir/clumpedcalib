@@ -7,7 +7,12 @@
 filter_outliers(data, group)
 }
 \arguments{
-\item{data}{A dataframe with columns \code{outlier}, \code{broadid},}
+\item{data}{A dataframe with columns \code{outlier}, \code{broadid}}
+
+\item{group}{Column name of the groups.}
+}
+\value{
+A dataframe with outliers, standards, and NAs filtered out.
 }
 \description{
 Filter clumped isotope outliers

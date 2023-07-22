@@ -10,6 +10,7 @@
 #' @export
 d18Osw_calc <- function(d18Occ, temperature, equation = NULL) {
   equation <- equation_supported(equation)
+
   if (equation == "KimONeil1997") {
     # T (°C) = a + b(δc - δw) + c(δc - δw)^2
     # with a = 16.1, b = -4.64, and c = 0.09

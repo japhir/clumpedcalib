@@ -2,11 +2,14 @@
 #'
 #' From bootstrapped samples and a bootstrapped set of slope--intercept pairs.
 #'
+#' @param boot A tibble with bootstrapped slope-intercept pairs, output of [bootstrap_means()].
 #' @param calib A dataframe with draws from the bootstrapped (or Bayesian)
 #'   temperature regression. Should have columns `slope` and `intercept`,
 #'   which are related via `clumpedr::revcal()`.
+#' @inheritParams d18Osw_calc
+#' @return Same as boot but with additional columns `temp` and `d18Osw`.
 #' @export
-calc_temp_d18Osw <- function(boot, calib, Nsim = NULL) {
+temp_d18Osw_calc <- function(boot, calib, equation = NULL, Nsim = NULL) {
   if (is.null(Nsim)) {
     # we simulate the same number of bootstraps for easy combination
     Nsim <- nrow(boot)
@@ -33,5 +36,5 @@ calc_temp_d18Osw <- function(boot, calib, Nsim = NULL) {
     # calculate d18Osw using the function above
     # we do not take into account potential uncertainty in these parameters,
     # but this is likely nothing.
-    dplyr::mutate(d18Osw = d18Osw_calc(d18O, temp))
+    dplyr::mutate(d18Osw = d18Osw_calc(d18Occ = d18O, temp = temp, equation = equation))
 }

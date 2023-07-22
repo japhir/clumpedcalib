@@ -26,6 +26,9 @@ bootstrapped averages for.}
 \item{Nsim}{The number of bootstraps you want to run. Defaults to the
 number of rows in \code{calib}.}
 }
+\value{
+A tibble with bootstrapped slope-intercept pair.
+}
 \description{
 Calculate bootstrapped means for each group in a dataframe
 }

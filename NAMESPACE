@@ -2,8 +2,8 @@
 
 export(apply_calib_and_d18O_boot)
 export(bootstrap_means)
-export(calc_temp_d18Osw)
 export(clumped_calib_boot)
 export(d18Osw_calc)
 export(filter_outliers)
 export(temp_calc)
+export(temp_d18Osw_calc)

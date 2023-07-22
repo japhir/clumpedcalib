@@ -1,6 +1,8 @@
 #' Filter clumped isotope outliers
 #'
-#' @param data A dataframe with columns `outlier`, `broadid`,
+#' @param data A dataframe with columns `outlier`, `broadid`
+#' @param group Column name of the groups.
+#' @return A dataframe with outliers, standards, and NAs filtered out.
 #' @export
 filter_outliers <- function(data, group) {
   data |>
