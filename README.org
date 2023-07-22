@@ -1,33 +1,34 @@
-* clumped isotope bootstrap calibration
+#+title: ~clumpedcalib~: Calculate and Apply Clumped Isotope Calibrations Using Bootstrapping
 [[https://zenodo.org/badge/latestdoi/657580630][https://zenodo.org/badge/657580630.svg]]
 
 Written by [[https://orcid.org/0000-0003-2196-8718][Ilja J. Kocken]]
 Feel free to use this stuff, as long as you adhere to the [[file:LICENSE.md]]
 
-This document describes how to calculate bootstrapped averages and apply a clumped-isotope specific temperature calibration.
+* How to calculate bootstrapped averages and apply a clumped-isotope specific temperature calibration.
 
 - Calculate bootstrapped York regression from clumped isotope calibration data.
 - Calculate bootstrapped sample means for the age, d13C, d18O, and D47.
 - Apply the bootstrapped calibration to calculate temperature and d18Osw.
+- Also comes with the classic d18Occ calibrations. See [[file:R/temp_calc.R][temp_calc()]].
+- As well as the inverses, for when you have constraints on temperature and wish to calculate d18Osw. See [[file:R/d18Osw_calc.R][d18Osw_calc()]] .
 
 To use this:
 1. Install this package ~clumpedcalib~, see [[#installation]].
 2. Update the input calibration data [[file:dat/example_calib.csv]]. Make sure the
-   column names include ~X~, ~D47~, ~sd_X~, ~sd_D47~
-3. Overwrite [[file:functions.org#d18Osw_calc][the function that calculates d18Osw]] to something that you like.
-4. Overwrite [[file:functions.org#filter_outliers][filter outliers]] so that it filters out bad measurements for your data.
-5. Add your samples at the replicate level and update [[file:clumped-bootstrap-calibration.org#load-sample-data][load sample data]]
+   column names include ~X~, ~D47~, ~sd_X~, ~sd_D47~.
+3. Add your sample data at the replicate level.
+4. Check to see if you like [[file:R/d18Osw_calc.R][the function that calculates d18Osw]]. Currently, you can choose from the Kim & O'Neil 1997 calibration, as adjusted by Bemis et al., 1998, or the Marchitto et al., 2014 calibration.
+5. Create your own definition of [[file:R/filter_outliers.R][filter outliers]] so that it filters out bad measurements and NA's for your data.
 6. Walk through [[file:clumped-bootstrap-calibration.org][the example workflow]] step-by-step.
 7. Have a look at [[file:functions.org][the functions]] to better understand what's happening.
 
 The bootstrapped calibration idea is based on a Matlab script written by Alvaro Fernandez.
 
-** installation
-To install this "package" (it's a quick and dirty draft with ugly function
-names, but it should work!):
+* installation
+To install this development package:
 
 #+begin_src R
   remotes::install_github("japhir/clumpedcalib")
 #+end_src
 
-Or you can look at all the [[file:functions.org][functions]].
+Or you can look at all the [[file:functions.org][functions]] and only copy what you like.
