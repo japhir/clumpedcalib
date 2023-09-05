@@ -10,8 +10,7 @@ temp_d18Osw_calc(boot, calib, equation = NULL, Nsim = NULL)
 \item{boot}{A tibble with bootstrapped slope-intercept pairs, output of \code{\link[=bootstrap_means]{bootstrap_means()}}.}
 
 \item{calib}{A dataframe with draws from the bootstrapped (or Bayesian)
-temperature regression. Should have columns \code{slope} and \code{intercept},
-which are related via \code{clumpedr::revcal()}.}
+temperature regression. Should have columns \code{slope} and \code{intercept}.}
 
 \item{equation}{Character vector with the equation to use. Defaults to Kim & O'Neil, 1997.}
 }

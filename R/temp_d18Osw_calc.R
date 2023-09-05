@@ -4,8 +4,7 @@
 #'
 #' @param boot A tibble with bootstrapped slope-intercept pairs, output of [bootstrap_means()].
 #' @param calib A dataframe with draws from the bootstrapped (or Bayesian)
-#'   temperature regression. Should have columns `slope` and `intercept`,
-#'   which are related via `clumpedr::revcal()`.
+#'   temperature regression. Should have columns `slope` and `intercept`.
 #' @inheritParams d18Osw_calc
 #' @return Same as boot but with additional columns `temp` and `d18Osw`.
 #' @export
@@ -16,21 +15,18 @@ temp_d18Osw_calc <- function(boot, calib, equation = NULL, Nsim = NULL) {
     calib <- calib[sample(nrow(calib), replace = TRUE, size = Nsim), ]
   }
 
+  # re-implement clumpedr::revcal here
+  cal <- function(D47 = D47, slp = slope, int = intercept) {
+    sqrt((slp * 1e6) / (D47 - int)) - 273.15
+  }
+
   boot |>
     # append the slope/intercept pairs of the temperature calibration
     # this is why we made sure that they are Nsim long as well.
     dplyr::mutate(slope = calib$slope,
                   intercept = calib$intercept) |>
     # calculate temperature using the parameters
-    # this relies on my clumpedr package
-    # https://github.com/isoverse/clumpedr/
-    # you can also just copy its revcal function from here:
-    # https://github.com/isoverse/clumpedr/blob/master/R/calibration.R#L72
-    dplyr::mutate(
-      temp = clumpedr::revcal(D47, slope = slope, intercept = intercept,
-                              # we have to use ignorecnf because the confidence calculations
-                              # in clumpedr are WRONG!
-                              ignorecnf = TRUE)) |>
+    dplyr::mutate(temp = cal(D47, slope = slope, intercept = intercept)) |>
     # get rid of calibration intercept and slope
     dplyr::select(-slope, -intercept) |>
     # calculate d18Osw using the function above

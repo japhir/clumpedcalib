@@ -17,8 +17,7 @@ apply_calib_and_d18O_boot(
 \item{data}{A dataframe with columns \code{outlier}, \code{broadid}}
 
 \item{calib}{A dataframe with draws from the bootstrapped (or Bayesian)
-temperature regression. Should have columns \code{slope} and \code{intercept},
-which are related via \code{clumpedr::revcal()}.}
+temperature regression. Should have columns \code{slope} and \code{intercept}.}
 
 \item{group}{Column name of the groups.}
 

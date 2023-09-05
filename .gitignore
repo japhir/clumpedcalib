@@ -1,3 +1,4 @@
 /.Rhistory
 /.Rbuildignore
 docs
+/out/*.rds
