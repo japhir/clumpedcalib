@@ -26,7 +26,7 @@ temp_d18Osw_calc <- function(boot, calib, equation = NULL, Nsim = NULL) {
     dplyr::mutate(slope = calib$slope,
                   intercept = calib$intercept) |>
     # calculate temperature using the parameters
-    dplyr::mutate(temp = cal(D47, slope = slope, intercept = intercept)) |>
+    dplyr::mutate(temp = cal(D47, slp = slope, int = intercept)) |>
     # get rid of calibration intercept and slope
     dplyr::select(-slope, -intercept) |>
     # calculate d18Osw using the function above
