@@ -1,6 +1,9 @@
-#' Parse equation name into our internal simplified code.
+#' Check if the provided equation is supported
 #'
+#' Also parses equation name into our internal simplified code.
 #' See details for which equations are currently supported.
+#'
+#' - TODO: add all supported equations and references somewhere.
 #'
 #' - Kim & O'Neil 1997 as recalculated by Bemis et al., 1998:
 #'
@@ -16,11 +19,11 @@
 #' @returns Character vector of cleaned up equation reference. Gives an error if it's currently not supported.
 equation_supported <- function(equation) {
   supported_equations <- c(
+    "Shackleton1974",
+    "ErezLuz1983",
     "KimONeil1997", # NOTE: as recalculated in Bemis 1998!
+    ## "Bemis1998",
     "Marchitto2014"
-    # "Bemis1998" TODO
-    # "Erez1983" TODO
-    # "Shackleton1974" TODO
   )
 
   # default
@@ -31,10 +34,17 @@ equation_supported <- function(equation) {
       cli::cli_abort("{.var {equation}} must be a {.type {character}} vector.")
     }
 
-    if (equation %in% c("Marchitto et al., 2014",
-                        "Marchitto2014",
-                        "Marchitto")) {
-      equation <- "Marchitto2014"
+    # allow aliases of how you type the equation reference
+    if (equation %in% c("Shackleton1974",
+                        "Shackleton 1974",
+                        "Shackleton, 1974")) {
+      equation <- "Shackleton1974"
+    }
+    if (equation %in% c("Erez & Luz, 1983",
+                        "Erez & Luz 1983",
+                        "Erez&Luz1983",
+                        "ErezLuz1983")) {
+      equation <- "ErezLuz1983"
     }
     if (equation %in% c("Kim & O'Neil, 1997",
                         "Kim & O'Neil 1997",
@@ -42,6 +52,16 @@ equation_supported <- function(equation) {
                         "Kim&ONeil",
                         "KimONeil1997")) {
       equation <- "KimONeil1997"
+    }
+    if (equation %in% c("Bemis 1998",
+                        "Bemis 1998",
+                        "Bemis et al., 1998")) {
+      equation <- "Bemis1998"
+    }
+    if (equation %in% c("Marchitto et al., 2014",
+                        "Marchitto2014",
+                        "Marchitto")) {
+      equation <- "Marchitto2014"
     }
   }
 

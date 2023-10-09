@@ -1,8 +1,44 @@
+test_that("All equations work", {
+  expect_error(d18Osw_calc(5, 3, equation = "hoi"))
+  expect_error(temp_calc(5, 3, equation = "hoi"))
+  temp_calc(d18Occ = 2, d18Osw = 0, equation = "Shackleton1974")
+  temp_calc(d18Occ = 2, d18Osw = 0, equation = "ErezLuz1983")
+  temp_calc(d18Occ = 2, d18Osw = 0, equation = "KimONeil1997")
+  temp_calc(d18Occ = 2, d18Osw = 0, equation = "Marchitto2014")
+  d18Osw_calc(d18Occ = 2, temperature = 5, equation = "Shackleton1974")
+  d18Osw_calc(d18Occ = 2, temperature = 5, equation = "ErezLuz1983")
+  d18Osw_calc(d18Occ = 2, temperature = 5, equation = "KimONeil1997")
+  d18Osw_calc(d18Occ = 2, temperature = 5, equation = "Marchitto2014")
+})
+
 test_that("They're reversible", {
+  # test Shackleton, 1974
+  expect_equal(d18Osw_calc(d18Occ = 3,
+                           temp = temp_calc(d18Occ = 3,
+                                            d18Osw = 0,
+                                            equation = "Shackleton1974"),
+                           equation = "Shackleton1974"),
+               expected = 0)
+  expect_equal(temp_calc(d18Occ = 3,
+                         d18Osw = d18Osw_calc(d18Occ = 3, temp = 5,
+                                              equation = "Shackleton1974"),
+                         equation = "Shackleton1974"),
+               expected = 5)
+
+  # test Erez & Luz, 1983
+  expect_equal(d18Osw_calc(d18Occ = 3,
+                           temp = temp_calc(d18Occ = 3,
+                                            d18Osw = 0,
+                                            equation = "ErezLuz1983"),
+                           equation = "ErezLuz1983"),
+               expected = 0)
+  expect_equal(temp_calc(d18Occ = 3,
+                         d18Osw = d18Osw_calc(d18Occ = 3, temp = 5,
+                                              equation = "ErezLuz1983"),
+                         equation = "ErezLuz1983"),
+               expected = 5)
+
   # test Kim & O'Neil, 1997
-  temp_calc(d18Occ = 2, d18Osw = 0)
-  d18Osw_calc(d18Occ = 2, temperature = 5)
-  # is it reversible?
   expect_equal(d18Osw_calc(d18Occ = 3,
                            temp = temp_calc(d18Occ = 3,
                                             d18Osw = 0)),
@@ -10,12 +46,8 @@ test_that("They're reversible", {
   expect_equal(temp_calc(d18Occ = 3,
                          d18Osw = d18Osw_calc(d18Occ = 3, temp = 5)),
                expected = 5)
-  expect_error(d18Osw_calc(5, 3, equation = "hoi"))
-  expect_error(temp_calc(5, 3, equation = "hoi"))
 
   # test Marchitto et al., 2014
-  temp_calc(d18Occ = 2, d18Osw = 0, equation = "Marchitto2014")
-  d18Osw_calc(d18Occ = 2, temperature = 5, equation = "Marchitto2014")
   expect_equal(d18Osw_calc(d18Occ = 3,
                            temp = temp_calc(d18Occ = 3,
                                             d18Osw = 0,

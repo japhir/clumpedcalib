@@ -17,8 +17,13 @@ temp_calc(d18Occ, d18Osw, equation = NULL)
 The temperature in degrees Celsius.
 }
 \description{
-This is the relationship from Kim & O'neil 1997,
-as updated by Bemis et al., 1998
+Defaults to the relationship from Kim & O'neil 1997,
+as updated by Bemis et al., 1998.
+}
+\references{
+Kim, S.-T., & O’Neil, J. R. (1997). Equilibrium and nonequilibrium oxygen isotope effects in synthetic carbonates. Geochimica et Cosmochimica Acta, 61(16), 3461–3475. https://doi.org/10.1016/S0016-7037(97)00169-5
+
+Bemis, B. E., Spero, H. J., Bijma, J., & Lea, D. W. (1998). Reevaluation of the oxygen isotopic composition of planktonic foraminifera: Experimental results and revised paleotemperature equations. Paleoceanography, 13(2), 150–160. https://doi.org/10.1029/98PA00070
 }
 \author{
 Ilja J. Kocken

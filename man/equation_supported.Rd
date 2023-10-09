@@ -2,7 +2,7 @@
 % Please edit documentation in R/equation_supported.R
 \name{equation_supported}
 \alias{equation_supported}
-\title{Parse equation name into our internal simplified code.}
+\title{Check if the provided equation is supported}
 \usage{
 equation_supported(equation)
 }
@@ -13,10 +13,12 @@ equation_supported(equation)
 Character vector of cleaned up equation reference. Gives an error if it's currently not supported.
 }
 \description{
+Also parses equation name into our internal simplified code.
 See details for which equations are currently supported.
 }
 \details{
 \itemize{
+\item TODO: add all supported equations and references somewhere.
 \item Kim & O'Neil 1997 as recalculated by Bemis et al., 1998:
 
 \eqn{T = a + b(\delta_{c} - \delta_{w}) + c(\delta_{c} - \delta_{w})^2}{T = a + b(delta_c - delta_w) + c(delta_c - delta_w)^2},
