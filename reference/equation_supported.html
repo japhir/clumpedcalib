@@ -51,7 +51,7 @@ See details for which equations are currently supported.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>equation</dt>
-<dd><p>Character vector with equation reference.</p></dd>
+<dd><p>Character vector with equation reference. Must be one of <code>supported_equations()</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -60,16 +60,6 @@ See details for which equations are currently supported.</p>
 
 <p>Character vector of cleaned up equation reference. Gives an error if it's currently not supported.</p>
     </div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    
-<ul><li><p>TODO: add all supported equations and references somewhere.</p></li>
-<li><p>Kim &amp; O'Neil 1997 as recalculated by Bemis et al., 1998:</p>
-<p>\(T = a + b(\delta_{c} - \delta_{w}) + c(\delta_{c} - \delta_{w})^2\),</p>
-<p>where T is in °C, \(\delta_{c}\) is in VPDB and \(\delta_{w}\) is in VMOW.</p></li>
-<li><p>Marchitto et al., 2014:</p>
-<p>\((\delta_{cp} - \delta_{ws} + 0.27) = -0.245\pm0.005t + 0.0011\pm0.0002t^{2} + 3.58±0.02\).</p></li>
-</ul></div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
