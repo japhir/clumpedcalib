@@ -6,13 +6,12 @@
 #' @param d18Occ The oxygen isotope composition of the carbonate in VPDB.
 #' @param d18Osw The oxygen isotope composition of the sea water in VSMOW
 #' @param equation Character vector with the equation to use. Defaults to Kim & O'Neil, 1997.
-#' @return The temperature in degrees Celsius.
+#' @returns The temperature in degrees Celsius.
 #' @author Ilja J. Kocken
+#' @inherit supported_equations references
+#' @examples
+#' temp_calc(3, 0, "KimONeil1997")
 #' @export
-#' @references
-#' Kim, S.-T., & O’Neil, J. R. (1997). Equilibrium and nonequilibrium oxygen isotope effects in synthetic carbonates. Geochimica et Cosmochimica Acta, 61(16), 3461–3475. https://doi.org/10.1016/S0016-7037(97)00169-5
-#'
-#' Bemis, B. E., Spero, H. J., Bijma, J., & Lea, D. W. (1998). Reevaluation of the oxygen isotopic composition of planktonic foraminifera: Experimental results and revised paleotemperature equations. Paleoceanography, 13(2), 150–160. https://doi.org/10.1029/98PA00070
 temp_calc <- function(d18Occ, d18Osw, equation = NULL) {
   equation <- equation_supported(equation)
   if (equation == "Shackleton1974") {

@@ -20,10 +20,19 @@ The temperature in degrees Celsius.
 Defaults to the relationship from Kim & O'neil 1997,
 as updated by Bemis et al., 1998.
 }
+\examples{
+temp_calc(3, 0, "KimONeil1997")
+}
 \references{
-Kim, S.-T., & O’Neil, J. R. (1997). Equilibrium and nonequilibrium oxygen isotope effects in synthetic carbonates. Geochimica et Cosmochimica Acta, 61(16), 3461–3475. https://doi.org/10.1016/S0016-7037(97)00169-5
+Shackleton, N. J. (1974). Attainment of isotopic equilibrium between ocean water and the benthic foraminifera genus \emph{Uvigerina}: Isotopic changes in the ocean during the last glacial. \emph{Colloques Internationaux Du CNRS}, \emph{219}, 203–209.
 
-Bemis, B. E., Spero, H. J., Bijma, J., & Lea, D. W. (1998). Reevaluation of the oxygen isotopic composition of planktonic foraminifera: Experimental results and revised paleotemperature equations. Paleoceanography, 13(2), 150–160. https://doi.org/10.1029/98PA00070
+Erez, J., & Luz, B. (1983). Experimental paleotemperature equation for planktonic foraminifera. \emph{Geochimica et Cosmochimica Acta}, \emph{47(6)}, 1025–1031. https://doi.org/10.1016/0016-7037(83)90232-6
+
+Kim, S.-T., & O’Neil, J. R. (1997). Equilibrium and nonequilibrium oxygen isotope effects in synthetic carbonates. \emph{Geochimica et Cosmochimica Acta}, \emph{61(16)}, 3461–3475. https://doi.org/10.1016/S0016-7037(97)00169-5
+
+Bemis, B. E., Spero, H. J., Bijma, J., & Lea, D. W. (1998). Reevaluation of the oxygen isotopic composition of planktonic foraminifera: Experimental results and revised paleotemperature equations. \emph{Paleoceanography}, \emph{13(2)}, 150–160. https://doi.org/10.1029/98PA00070
+
+Marchitto, T. M., Curry, W. B., Lynch-Stieglitz, J., Bryan, S. P., Cobb, K. M., & Lund, D. C. (2014). Improved oxygen isotope temperature calibrations for cosmopolitan benthic foraminifera. \emph{Geochimica et Cosmochimica Acta}, \emph{130}, 1–11. https://doi.org/10.1016/j.gca.2013.12.034
 }
 \author{
 Ilja J. Kocken

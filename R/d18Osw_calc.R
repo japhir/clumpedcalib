@@ -4,12 +4,11 @@
 #'
 #' @param temperature  The formation temperature (in °C).
 #' @inheritParams temp_calc
-#' @return The oxygen isotope composition of the sea water in VSMOW.
+#' @returns The oxygen isotope composition of the sea water in VSMOW.
 #' @author Ilja J. Kocken
-#' @references
-#' Kim, S.-T., & O’Neil, J. R. (1997). Equilibrium and nonequilibrium oxygen isotope effects in synthetic carbonates. Geochimica et Cosmochimica Acta, 61(16), 3461–3475. https://doi.org/10.1016/S0016-7037(97)00169-5
-#'
-#' Bemis, B. E., Spero, H. J., Bijma, J., & Lea, D. W. (1998). Reevaluation of the oxygen isotopic composition of planktonic foraminifera: Experimental results and revised paleotemperature equations. Paleoceanography, 13(2), 150–160. https://doi.org/10.1029/98PA00070
+#' @inherit supported_equations references
+#' @examples
+#' d18Osw_calc(3, 2, "KimONeil1997")
 #' @export
 d18Osw_calc <- function(d18Occ, temperature, equation = NULL) {
   equation <- equation_supported(equation)

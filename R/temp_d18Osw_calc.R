@@ -6,7 +6,7 @@
 #' @param calib A dataframe with draws from the bootstrapped (or Bayesian)
 #'   temperature regression. Should have columns `slope` and `intercept`.
 #' @inheritParams d18Osw_calc
-#' @return Same as boot but with additional columns `temp` and `d18Osw`.
+#' @returns Same as boot but with additional columns `temp` and `d18Osw`.
 #' @export
 temp_d18Osw_calc <- function(boot, calib, equation = NULL, Nsim = NULL) {
   if (is.null(Nsim)) {

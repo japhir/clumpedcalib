@@ -12,7 +12,7 @@
 #' @param D47 The column name in `data` with the clumped isotope values.
 #' @param Nsim The number of bootstraps you want to run. Defaults to the
 #'   number of rows in `calib`.
-#' @return A tibble with bootstrapped slope-intercept pair.
+#' @returns A tibble with bootstrapped slope-intercept pair.
 #' @export
 bootstrap_means <- function(data,
                             group,
