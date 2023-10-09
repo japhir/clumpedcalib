@@ -62,12 +62,14 @@
 </h1></div>
 <p><a href="https://zenodo.org/badge/latestdoi/657580630" class="external-link"><img src="https://zenodo.org/badge/657580630.svg"></a></p>
 <p>Written by <a href="https://orcid.org/0000-0003-2196-8718" class="external-link">Ilja J. Kocken</a> Feel free to use this stuff, as long as you adhere to the <a href="LICENSE.html">file:LICENSE.md</a></p>
+<p>NOTE: This is just the <strong>method</strong> I use, I’m not publishing the actual calibration dataset that I’m using here!</p>
 <ul>
-<li>Calculate bootstrapped York regression from clumped isotope calibration data.</li>
-<li>Calculate bootstrapped sample means for the age, d13C, d18O, and D47.</li>
-<li>Apply the bootstrapped calibration to calculate temperature and d18Osw.</li>
+<li>Calculate bootstrapped York regression from clumped isotope calibration data. <a href="R/clumped_calib_boot.R">clumped_calib_boot()</a>.</li>
+<li>Calculate bootstrapped sample means for the age, d13C, d18O, and D47. <a href="R/bootstrap_means.R">bootstrap_means()</a>.</li>
+<li>Apply the bootstrapped calibration to calculate temperature and d18Osw. <a href="R/temp_d18Osw_calc.R">temp_d18Osw_calc()</a>.</li>
+<li>Summarize bootstrapped values and calculate 68 and 95% CIs. <a href="R/our_summary.R">our_summary()</a>.</li>
 <li>Also comes with the classic d18Occ calibrations. See <a href="R/temp_calc.R">temp_calc()</a>.</li>
-<li>As well as the inverses, for when you have constraints on temperature and wish to calculate d18Osw. See <a href="R/d18Osw_calc.R">d18Osw_calc()</a> .</li>
+<li>As well as the inverses, for when you have constraints on temperature and wish to calculate d18Osw. See <a href="R/d18Osw_calc.R">d18Osw_calc()</a>.</li>
 </ul>
 <div class="section level2">
 <h2 id="how-to-calculate-bootstrapped-averages-and-apply-a-clumped-isotope-specific-temperature-calibration">How to calculate bootstrapped averages and apply a clumped-isotope specific temperature calibration.<a class="anchor" aria-label="anchor" href="#how-to-calculate-bootstrapped-averages-and-apply-a-clumped-isotope-specific-temperature-calibration"></a>
@@ -77,9 +79,10 @@
 <li>Install this package <code>clumpedcalib</code>, see <a href="#installation">#installation</a>.</li>
 <li>Update the input calibration data <a href="dat/example_calib.csv">file:dat/example_calib.csv</a>. Make sure the column names include <code>X</code>, <code>D47</code>, <code>sd_X</code>, <code>sd_D47</code>.</li>
 <li>Add your sample data at the replicate level.</li>
-<li>Check to see if you like <a href="R/d18Osw_calc.R">the function that calculates d18Osw</a>. Currently, you can choose from the Kim &amp; O'Neil 1997 calibration, as adjusted by Bemis et al., 1998, or the Marchitto et al., 2014 calibration.</li>
-<li>Create your own definition of <a href="R/filter_outliers.R">filter outliers</a> so that it filters out bad measurements and NA's for your data.</li>
-<li>Walk through <a href="clumped-bootstrap-calibration.org">the example workflow</a> step-by-step.</li>
+<li>Check to see if you like <a href="R/d18Osw_calc.R">the function that calculates d18Osw</a>. Currently, it defaults to the Kim &amp; O'Neil 1997 calibration, as adjusted by Bemis et al., 1998.</li>
+<li>If you want to use the wrapper function: create your own definition of <a href="R/filter_outliers.R">filter outliers</a> so that it filters out bad measurements and NA's for your data.</li>
+<li>Use the wrapper function to do it all at once <a href="R/apply_calib_and_d18O_boot.R">apply_calib_and_d18O_boot()</a>, or better yet:</li>
+<li>Walk through <a href="clumped-bootstrap-calibration.org">the example workflow</a> step-by-step or apply the bulletpoint functions from above one-by-one.</li>
 <li>Have a look at <a href="R">the functions</a> to better understand what’s happening.</li>
 </ol>
 <p>The bootstrapped calibration idea is based on a Matlab script written by Alvaro Fernandez.</p>
