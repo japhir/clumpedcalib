@@ -1,10 +1,12 @@
 #' Check if the provided equation is supported
 #'
-#' Also parses equation name into our internal simplified code.
-#' See details for which equations are currently supported.
+#' Also parses equation name into our internal simplified code. See
+#' [supported_equations()] and References for which equations are currently
+#' supported.
 #'
 #' @param equation Character vector with equation reference. Must be one of [supported_equations()].
 #' @returns Character vector of cleaned up equation reference. Gives an error if it's currently not supported.
+#' @inherit supported_equations references
 equation_supported <- function(equation) {
   # default
   if (is.null(equation)) {
