@@ -7,7 +7,7 @@
 general_bemis_d18Osw(d18Occ, temperature, a, b, c, d)
 }
 \arguments{
-\item{d18Occ}{Input d18O of the calcite in VPDB.}
+\item{d18Occ}{\eqn{\delta^{18}O}{δ18O} of the calcite in VPDB.}
 
 \item{temperature}{Input temperature.}
 

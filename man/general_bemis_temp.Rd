@@ -7,9 +7,9 @@
 general_bemis_temp(d18Occ, d18Osw, a, b, c, d)
 }
 \arguments{
-\item{d18Occ}{Input d18O of the calcite in VPDB.}
+\item{d18Occ}{\eqn{\delta^{18}O}{δ18O} of the calcite in VPDB.}
 
-\item{d18Osw}{Input d18O of the sea water in VSMOW}
+\item{d18Osw}{\eqn{\delta^{18}O}{δ18O} of the sea water in VSMOW.}
 
 \item{a}{Intercept.}
 

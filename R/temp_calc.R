@@ -27,9 +27,8 @@ temp_calc <- function(d18Occ, d18Osw, equation = NULL) {
   } else if (equation == "Marchitto2014") {
     # Equation 9
     # (δcp - δws + 0.27) = -0.245±0.005t + 0.0011±0.0002t² + 3.58±0.02
-    # (δc - δw + 0.27) = -a + b^2 + c
-    # (a - sqrt(a² + 4b(-c + δcp - δws + 0.27)) - a) / 2b
-    temp <- (0.245 - sqrt(0.045461 + 0.0044 *(d18Occ - d18Osw))) / 0.0022
+    # (x - y + d) = a + b*t + c*t^2, where a = 3.58, b = -0.245 and c = 0.0011
+    temp <- -(sqrt(4 * 0.0011 * (-3.58 + d18Occ - d18Osw + 0.27) + (-0.245)^2) - 0.245) / (2 * 0.0011)
   }
   temp
 }

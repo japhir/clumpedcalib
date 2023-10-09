@@ -27,7 +27,9 @@ d18Osw_calc <- function(d18Occ, temperature, equation = NULL) {
   } else if (equation == "Marchitto2014") {
     # Marchitto et al., 2014 equation 9
     # (δcp - δws + 0.27) = -0.245±0.005t + 0.0011±0.0002t² + 3.58±0.02
-    d18Osw <- 0.245 * temperature - 0.0011 * temperature^2 - 3.58 + d18Occ + 0.27
+    # (x - y + d) = a + b*t + c*t^2, where a = 3.58, b = -0.245 and c = 0.0011
+    # y = -a - b t - c t^2 + d + x
+    d18Osw <- 0.245 * temperature - 0.0011 * temperature^2 -3.58 + d18Occ + 0.27
   }
   d18Osw
 }
