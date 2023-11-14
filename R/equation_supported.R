@@ -82,6 +82,7 @@ equation_supported <- function(equation) {
 #' Bemis, B. E., Spero, H. J., Bijma, J., & Lea, D. W. (1998). Reevaluation of the oxygen isotopic composition of planktonic foraminifera: Experimental results and revised paleotemperature equations. _Paleoceanography_, _13(2)_, 150–160. https://doi.org/10.1029/98PA00070
 #'
 #' Marchitto, T. M., Curry, W. B., Lynch-Stieglitz, J., Bryan, S. P., Cobb, K. M., & Lund, D. C. (2014). Improved oxygen isotope temperature calibrations for cosmopolitan benthic foraminifera. _Geochimica et Cosmochimica Acta_, _130_, 1–11. https://doi.org/10.1016/j.gca.2013.12.034
+#' @export
 supported_equations <- function() {
   c(
     "Shackleton1974",
