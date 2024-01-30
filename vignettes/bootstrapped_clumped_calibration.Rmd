@@ -30,14 +30,16 @@ library(clumpedcalib)
 set.seed(123)
 ```
 
-## load calibration data and calculate bootstrapped York regression
+# Bootstrapped York regression
+
+## load calibration data
 
 Here I show this with a very small artificial set of calibration data.
 Be sure to replace with your own!
 
 The column names must be identical to `X`, `D47`, `sd_X`, and `sd_D47`.
 
-```{r calibration}
+```{r calibration-data}
 raw <- tibble::tribble(
   ~ X, ~ D47, ~ sd_X, ~ sd_D47,
   11.25,0.607,0.062,0.007,
@@ -52,7 +54,11 @@ raw <- tibble::tribble(
 # or if you have your data saved as an CSV
 ## raw <- readr::read_csv("dat/example_calib.csv",
 ##                 col_names = c("X", "D47", "sd_X", "sd_D47"))
+```
 
+## calculate bootstrapped York regression
+
+```{r calibration-bootstrap}
 # this is very much a toy example with only 100 bootstraps!
 calib <- clumped_calib_boot(raw, Nsim = 100) #|>
   # for the real deal, increase Nsim to something like 1e5 and save the results
@@ -62,7 +68,6 @@ calib <- clumped_calib_boot(raw, Nsim = 100) #|>
 # then you can read these stored results like so:
 ## calib <- readr::read_csv("calib_clumped_boot.csv")
 ```
-
 
 ```{r, calibrationplot}
 raw |>
@@ -81,6 +86,8 @@ raw |>
   geom_abline(aes(slope = slope, intercept = intercept),
               alpha = .2, data = calib)
 ```
+
+# Apply it to your data
 
 ## load sample data
 
@@ -107,9 +114,7 @@ pl_raw <- dat |>
 pl_raw
 ```
 
-## calculate bootstrapped means and apply the temperature calibration
-
-### just give me the results!
+## just give me the results!
 
 This is a simple wrapper function to quickly get the end result. If you want more control, see below.
 
@@ -140,7 +145,7 @@ sum |>
   geom_text(aes(label = paste("N =", n)), nudge_x = 1.5)
 ```
 
-### individual functions
+## more control
 
 If you want to have more control, I recommend not using the above wrapper
 function, but in stead take it one step at a time:
@@ -172,7 +177,5 @@ sim <- dat |>
   temp_d18Osw_calc(calib = calib, equation = "KimONeil1997", Nsim = 100) |>
   our_summary(group = bins)
 ```
-
-# acknowledgements
 
 We would like to thank Alvaro Fernandez for writing and sharing the Matlab code that inspired this R package.
