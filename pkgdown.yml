@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   bootstrapped_clumped_calibration: bootstrapped_clumped_calibration.html
-last_built: 2024-01-30T21:07Z
+last_built: 2024-01-30T21:13Z
 urls:
   reference: https://japhir.github.io/clumpedcalib/reference
   article: https://japhir.github.io/clumpedcalib/articles
