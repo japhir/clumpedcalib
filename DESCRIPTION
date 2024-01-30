@@ -11,7 +11,7 @@ Description: Calculate bootstrapped York regression from clumped isotope
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Imports:
     bfsl,
     boot,
@@ -27,6 +27,9 @@ Imports:
     tidylog,
     tidyr
 Suggests:
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://japhir.github.io/clumpedcalib/
+VignetteBuilder: knitr

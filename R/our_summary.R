@@ -2,6 +2,7 @@
 #'
 #' @param boot Output of `apply_calib_and_d18O_boot()`
 #' @param group The group to summarize by.
+#' @export
 our_summary <- function(boot, group) {
   boot |>
     dplyr::group_by({{group}}) |>
